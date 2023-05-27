@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/countCal/static/js/main.bedf5a13.js",
+    "static/media/bowl.jpeg": "/countCal/static/media/bowl.4a270718b415b8b2f8c4.jpeg",
+    "index.html": "/countCal/index.html",
+    "main.bedf5a13.js.map": "/countCal/static/js/main.bedf5a13.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bedf5a13.js"
+  ]
+}
