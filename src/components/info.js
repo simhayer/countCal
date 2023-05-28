@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,25 +7,84 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+
+
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 
 const TargetPage = () => {
     // Use the detectionsMap in this component
+    ChartJS.register(ArcElement, Tooltip, Legend);
+    const [rows, setRows] = useState([]);
+    const [totalRow, setTotalRow] = useState(null);
 
+    // Function to add a new row to the table
+    const addRow = (name, calories, fat, carbs, protein) => {
+      const newRow = createData(name, calories, fat, carbs, protein);
+      setRows(prevRows => [...prevRows, newRow]);
+    };
+  
+    const getTotalValues = () => {
+      let totalCalories = 0;
+      let totalFat = 0;
+      let totalCarbs = 0;
+      let totalProtein = 0;
+  
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        // if (row.name === "Total") {
+        //   break;
+        // }
+        totalCalories += row.calories;
+        totalFat += row.fat;
+        totalCarbs += row.carbs;
+        totalProtein += row.protein;
+      }
+  
+      return createData('Total', totalCalories, totalFat, totalCarbs, totalProtein);
+    };
+  
     const detectionsMap = useLocation();
     const hashMap = detectionsMap.state.name
-    const keys = Array.from(hashMap.keys());
-    console.log(keys);
+    const keys = Array.from(new Set(hashMap.keys()));
+    //console.log(keys);
     const imgTest = detectionsMap.state.img
-    console.log(imgTest);
+    //console.log(imgTest);
+    const addTotalRow = () => {
+      const totalRow = getTotalValues();
+      console.log(totalRow);
+      setTotalRow(getTotalValues());
+    };
+    
+    useEffect(() => {
+      const addRowByKey = (key) => {
+        if (foodData.hasOwnProperty(key)) {
+          const food = foodData[key];
+          addRow(key, food.calories, food.fat, food.carbs, food.protein);
+        }
+      };
+    
+      keys.forEach(key => {
+        if (!rows.some(row => row.name === key)) {
+          addRowByKey(key);
+        }
+      });
+    
+      if (rows.some(row => row.name !== 'Total')) {
+        addTotalRow();
+      }
+    }, [keys, rows, addRow, addTotalRow]);
     //const {prop1} = detectionsMap.state.name;
     const foodData = {
-        apple: {
+        person: {
             calories: 52,
             fat: 0.2,
             carbs: 14,
             protein: 0.3
         },
-        banana: {
+        remote: {
             calories: 96,
             fat: 0.4,
             carbs: 25,
@@ -61,26 +120,53 @@ const TargetPage = () => {
         return { name, calories, fat, carbs, protein };
       }
 
-    const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-      ];
+      const pieChartData = {
+        labels: ['Protein', 'Calories', 'Fat', 'Carbs'],
+        datasets: [
+          {
+            data: [
+              totalRow ? totalRow.protein : 0,
+              totalRow ? totalRow.calories : 0,
+              totalRow ? totalRow.fat : 0,
+              totalRow ? totalRow.carbs : 0
+            ],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+          }
+        ],
+        options: {
+          plugins: {
+            legend: {
+              display: true,
+              position: 'bottom',
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const label = context.label || '';
+                  const value = context.parsed || 0;
+                  return `${label}: ${value}`;
+                }
+              }
+            }
+          },
+        },
+      };
+      
+
   return (
     <div>
 
-    <div>
+    <Grid sx={{paddingY: '5%'}}>
     <img src={imgTest} alt = '' width={window.innerWidth}/> 
-    </div>
+    </Grid>
 
-    <div>
+    <Grid sx={{paddingY: '2%'}}>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{}} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
+            <TableCell>Dessert</TableCell>
             <TableCell align="right">Calories</TableCell>
             <TableCell align="right">Fat&nbsp;(g)</TableCell>
             <TableCell align="right">Carbs&nbsp;(g)</TableCell>
@@ -105,7 +191,10 @@ const TargetPage = () => {
         </TableBody>
       </Table>
     </TableContainer>
-    </div>
+    </Grid>
+    <div>
+        <Pie data={pieChartData} />
+      </div>
     </div>
   );
 };

@@ -106,11 +106,8 @@ function Camera() {
   };
 
   //useEffect(() => { runCoco() }, []);
-  const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: "user"
-  };
+
+
   return (
     <div className="App" style={{
       position: "absolute",
@@ -136,7 +133,7 @@ function Camera() {
           zindex: 9,
           width: window.innerWidth,
           height: window.innerHeight,
-          border: "2px solid #ccc"
+          border: "2px solid #ccc",
         }}
       />
 

@@ -8,11 +8,12 @@ import * as cocossd from "@tensorflow-models/coco-ssd"
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Slide, Typography } from '@mui/material';
-import BowlImage from '../Resources/bowl.jpeg'
+import BowlImage from '../Resources/png-clipart-delicious-food-food-salad.png';
 import FormLabel from '@mui/material/FormLabel';
 // 2. TODO - Import drawing utility here
 // e.g. import { drawRect } from "./utilities";
 import { useNavigate } from "react-router-dom";
+
 
 function Landing() {
     const [unlockText, setUnlockText] = useState('Swipe to Explore');
@@ -41,59 +42,23 @@ function Landing() {
             setCurrentX(0);
         } else {
             setIsUnlocked(true);
-            navigate('/camera');
+
         }
     };
+    const handleClick = () => {
+        navigate('/camera');
+    }
 
     return (
         <Grid>
-            <img src={BowlImage} style={{ paddingTop: '30%', width: '80%', paddingLeft: '10%' }} />
+            <img src={BowlImage} style={{ paddingTop: '20%', width: '80%', paddingLeft: '10%'}} />
             <Grid sx={{ paddingTop: '10%', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                <FormLabel sx={{ fontSize: '1.5rem', paddingLeft: '2.5%', paddingTop: '10%' }}>Find what all you eat, with just a click </FormLabel>
+                <FormLabel sx={{ fontSize: '1.5rem', paddingLeft: '2.5%', paddingTop: '30%', fontWeight: "bold" }}>Find what all you eat, with just a click! </FormLabel>
             </Grid>
-            <Grid sx={{ paddingLeft: '10%', width: '90%', paddingTop: '10%' }}>
-                <Slide direction="right" in={!isUnlocked} mountOnEnter unmountOnExit>
-                    <div
-                        style={{
-                            position: 'relative',
-                            height: '7vh',
-                            backgroundColor: '#f5f5f5',
-                            borderRadius: '2vh',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            overflow: 'hidden',
-                        }}
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
-                    >
-                        <div
-                            style={{
-                                position: 'absolute',
-                                left: -260 + currentX,
-                                top: 0,
-                                height: '100%',
-                                width: '40vh',
-                                backgroundColor: '#6c7381',
-                                transition: 'left 0.3s ease-out',
-                                borderRadius: '2vh',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                                paddingRight: '20px',
-                            }}
-                        >
-                            <Typography variant="h6" color="white" style={{ fontWeight: 'bold' }}>
-                                &#8594;
-                            </Typography>
-                        </div>
-                        <Typography variant="h6" color="textPrimary">
-                            {unlockText}
-                        </Typography>
-                    </div>
-                </Slide>
+            <Grid item container justifyContent="center" sx={{ paddingTop: "6rem" }}>
+                <Button variant="contained" size="large" onClick={handleClick} style={{ width: '60%', height: '100%', borderRadius: "40%" }}>
+                    Let's start
+                </Button>
             </Grid>
         </Grid>
     );
