@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+### Welcome to Calorify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to run the app
 
-## Available Scripts
+- Clone the repository and run "npm start"
 
-In the project directory, you can run:
+## Inspiration
+We understand the challenges faced by individuals who strive to maintain a healthy lifestyle. Counting calories and tracking macronutrients can be time-consuming and overwhelming. We wanted to create a user-friendly app that simplifies this process, making it accessible to everyone. By harnessing the potential of AI and image recognition, we aimed to develop a tool that enhances nutritional awareness and fosters healthier eating habits.
 
-### `npm start`
+## What it does
+Calorify leverages Tensorflow object detection models to accurately identify various food items in a user's meal. By simply snapping a photo using their smartphone camera, users can instantly receive a comprehensive breakdown of the calories, macronutrients, and even ingredients present in each dish. Our algorithms analyze the nutritional content, providing users with valuable insights to guide their dietary choices.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How we built it
+Calorify was built using a combination of React, JavaScript, TensorFlow's object detection model, and Material-UI framework. Our development process involved several key steps:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   Planning and Design:
+    We started by outlining the app's functionalities and user experience through meticulous planning and design. We identified the core features, such as object detection, nutritional analysis, and user-friendly interface, which guided our development roadmap.
 
-### `npm test`
+   React and JavaScript Development:
+    We leveraged the power of React, a popular JavaScript library, to create a responsive and dynamic user interface. React allowed us to build reusable components, manage state effectively, and ensure smooth interactions with the application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   TensorFlow Object Detection Model Integration:
+    To enable accurate food item recognition, we integrated TensorFlow's object detection model into our application. The model was trained on coco ssd data set [link](https://cocodataset.org/#explore). TensorFlow's extensive ecosystem provided us with the necessary tools and resources to implement the model effectively.
 
-### `npm run build`
+   Material-UI Framework:
+    To enhance the visual aesthetics and user experience, we utilized Material-UI, a popular React component library. Material-UI provided us with a wide range of pre-built UI components, responsive layouts, and styling options, enabling us to create a sleek and intuitive app design.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   Data and Nutrition Analysis:
+    We incorporated a comprehensive food json containing nutritional information to enable accurate analysis. Leveraging JavaScript, we implemented the necessary calculations and algorithms to break down the nutritional content based on recognized food items. This data was then presented to the users in a form of table and graphs.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   Testing and Iteration:
+    Throughout the development process, we conducted rigorous testing to ensure the app's functionality, performance, and user experience met our standards. We iterated on the design and functionality based on user feedback and refined the application to provide a seamless experience.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   Deployment:
+    We were not able to deploy it for other users to use but they can clone our repository and do a "npm start" to use the app
 
-### `npm run eject`
+## Challenges we ran into
+1. Integration of TensorFlow Object Detection Model:
+Integrating TensorFlow's object detection model into the application was a complex task. We had to ensure compatibility between the model and our React-based fronted, manage dependencies, and optimize the model's performance on mobile devices. This required extensive research, experimentation, and troubleshooting to achieve seamless integration.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Accomplishments that we're proud of
+- Successful Integration of AI and Object Detection
+-Performance Optimization for Mobile Devices
+-Collaborative Teamwork and Problem-solving
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## What we learned
+- Learned a lot about various models TensorFlow have and how to integrate them with React
+- Developing a clean UI
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What's next for Calories Counter (Calorify)
+- Build a login and database so the app become ready for deployment 
+- Training our AI Model for better accuracy 
+- Build a socializing section for other people to discuss healthy recipes :)
