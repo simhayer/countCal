@@ -70,13 +70,13 @@ const TargetPage = () => {
     }
   }, [keys, rows, addRow, addTotalRow]);
   const foodData = {
-    person: {
+    apple: {
       calories: 52,
       fat: 0.2,
       carbs: 14,
       protein: 0.3
     },
-    remote: {
+    banana: {
       calories: 96,
       fat: 0.4,
       carbs: 25,
@@ -105,6 +105,12 @@ const TargetPage = () => {
       fat: 0,
       carbs: 2.6,
       protein: 0.1
+    },
+    sandwich: {
+      calories: 300,
+      fat: 10,
+      carbs: 45,
+      protein: 15
     }
   };
 
