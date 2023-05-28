@@ -42,7 +42,7 @@ function Camera() {
       const imageSrc = webcamRef.current.getScreenshot();
 
       navigate('/target', { state: { name: detectionsMapSort, img: imageSrc } });
-    }, 8000);
+    }, 5000);
 
   };
 
