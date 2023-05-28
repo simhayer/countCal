@@ -1,22 +1,13 @@
-// Import dependencies
 import React, { useRef, useState, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
-// 1. TODO - Import required model here
-// e.g. import * as tfmodel from "@tensorflow-models/tfmodel";
 import Webcam from "react-webcam";
-//import "./App.css";
 import * as cocossd from "@tensorflow-models/coco-ssd"
-// 2. TODO - Import drawing utility here
-// e.g. import { drawRect } from "./utilities";
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage';
 
 function Camera() {
   const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  //const [imgSrc, setImgSrc] = useState(null); // initialize it
   const [detections, setDetections] = useState([]);
   const navigate = useNavigate();
   const [pass, setPass] = useState(null);
@@ -29,19 +20,18 @@ function Camera() {
 
   //Main function
   const runCoco = async () => {
-    // 3. TODO - Load network 
+
     objLengthTotal = 0;
     objCount = 0
     detectionsMap.clear();
     const net = await cocossd.load();
 
-    //  Loop and detect hands
     const detectionInterval = setInterval(() => {
       detect(net);
 
     }, 10);
 
-    // Stop the detection after 5 seconds
+    // Stop the detection after 8 seconds
     setTimeout(() => {
       clearInterval(detectionInterval);
       const detectionsMapSort = new Map([...detectionsMap.entries()].sort((a, b) => b[1] - a[1]))
@@ -50,13 +40,9 @@ function Camera() {
       console.log(objLengthTotal + " -- " + objCount);
       console.log(avgItems);
       const imageSrc = webcamRef.current.getScreenshot();
-     // setImgSrc(imageSrc);
-    //  console.log(imageSrc);
+
       navigate('/target', { state: { name: detectionsMapSort, img: imageSrc } });
     }, 8000);
-
-    //console.log(detectionsMap);
-
 
   };
 
@@ -76,13 +62,8 @@ function Camera() {
       webcamRef.current.video.width = videoWidth;
       webcamRef.current.video.height = videoHeight;
 
-      // // Set canvas height and width
-      // canvasRef.current.width = videoWidth;
-      // canvasRef.current.height = videoHeight;
-
-      // 4. TODO - Make Detections
       const obj = await net.detect(video);
-      //setDetections((prevDetections) => [...prevDetections, ...obj]);
+
       console.log(obj);
       for (let i = 0; i < obj.length; i++) {
         if (detectionsMap.has(obj[i].class)) {
@@ -93,20 +74,11 @@ function Camera() {
         }
         objLengthTotal++;
       }
-      //objLengthTotal = objLengthTotal + obj.length;
-      //objCount = objCount + 1;
+
       objCount++;
 
-      // Draw mesh
-      //const ctx = canvasRef.current.getContext("2d");
-
-      // 5. TODO - Update drawing utility
-      // drawSomething(obj, ctx)  
     }
   };
-
-  //useEffect(() => { runCoco() }, []);
-
 
   return (
     <div className="App" style={{
@@ -151,17 +123,6 @@ function Camera() {
           zIndex: 2
         }}
       >
-        {/* <button
-          onClick={runCoco}
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "50%",
-            fontSize: "1.2em"
-          }}
-        >
-          check cal
-        </button> */}
         <Button
           variant="contained"
           endIcon={<EmojiFoodBeverageIcon />}
