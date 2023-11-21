@@ -12,6 +12,7 @@ function Camera() {
   const navigate = useNavigate();
   const [pass, setPass] = useState(null);
 
+  
 
   var detectionsMap = new Map();
   var objLengthTotal = 0;
